@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SMS Consent | Valtaris Technologies</title>
+  <style>
+    body{font-family:Arial,Helvetica,sans-serif;max-width:820px;margin:0 auto;padding:48px 24px;line-height:1.65;color:#172033;background:#fff}
+    h1{font-size:36px;margin-bottom:8px} h2{margin-top:32px}
+    a{color:#1769e0}
+    .updated{color:#667085}
+    .card{padding:28px;border:1px solid #d9dee8;border-radius:14px;margin-top:24px;background:#f8fafc}
+    label{display:block;font-weight:600;margin:18px 0 8px}
+    input[type="tel"]{width:100%;box-sizing:border-box;padding:13px 14px;border:1px solid #b9c1cf;border-radius:8px;font-size:16px}
+    .consent{display:flex;gap:10px;align-items:flex-start;font-weight:400;margin-top:18px}
+    .consent input{margin-top:5px}
+    button{margin-top:20px;padding:13px 22px;border:0;border-radius:8px;background:#1769e0;color:#fff;font-size:16px;font-weight:700;cursor:pointer}
+    .notice{margin-top:18px;padding:14px;border-radius:8px;background:#eef6ff;display:none}
+    .fine{font-size:14px;color:#667085}
+    footer{margin-top:48px;color:#667085;font-size:14px}
+  </style>
+</head>
+<body>
+  <p><a href="index.html">Valtaris Technologies</a></p>
+  <h1>SMS Authorization &amp; Security Alerts</h1>
+  <p class="updated">SMS consent page</p>
+
+  <p>Valtaris Technologies uses SMS to deliver transactional notifications for products and services such as MIDAS. These messages may include authorization requests, security notifications, account or service alerts, and other communications you have requested or authorized.</p>
+
+  <div class="card">
+    <h2>Opt in to SMS messages</h2>
+    <p>Enter your mobile phone number below and actively check the consent box to agree to receive SMS messages from Valtaris Technologies.</p>
+
+    <form id="smsConsentForm">
+      <label for="phone">Mobile phone number</label>
+      <input id="phone" name="phone" type="tel" autocomplete="tel" placeholder="(555) 555-5555" required>
+
+      <label class="consent" for="smsConsent">
+        <input id="smsConsent" name="smsConsent" type="checkbox" required>
+        <span>I agree to receive recurring transactional SMS messages from Valtaris Technologies related to MIDAS authorization requests, security notifications, account/service alerts, and other requested service communications. Message frequency varies. Message and data rates may apply. Consent is not a condition of purchase.</span>
+      </label>
+
+      <p class="fine">You can opt out at any time by replying STOP. Reply HELP for assistance. See our <a href="terms.html">Terms &amp; Conditions</a> and <a href="privacy.html">Privacy Policy</a>.</p>
+
+      <button type="submit">Yes, sign me up!</button>
+      <div class="notice" id="confirmation" role="status">Your SMS consent has been recorded for this session. You may now receive authorized transactional messages from Valtaris Technologies.</div>
+    </form>
+  </div>
+
+  <h2>About the SMS program</h2>
+  <p>Messages are intended for the person who has affirmatively opted in. We do not sell or share mobile phone numbers or SMS opt-in information with third parties or affiliates for their own marketing purposes.</p>
+  <p>Message frequency varies based on activity and requests. Message and data rates may apply. Reply STOP to opt out or HELP for assistance.</p>
+
+  <footer>© 2026 Valtaris Technologies. All rights reserved.</footer>
+
+  <script>
+    document.getElementById('smsConsentForm').addEventListener('submit', function(event){
+      event.preventDefault();
+      document.getElementById('confirmation').style.display = 'block';
+    });
+  </script>
+</body>
+</html>
