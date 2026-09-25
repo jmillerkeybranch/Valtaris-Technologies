@@ -15,6 +15,7 @@
     .consent{display:flex;gap:10px;align-items:flex-start;font-weight:400;margin-top:18px}
     .consent input{margin-top:5px}
     button{margin-top:20px;padding:13px 22px;border:0;border-radius:8px;background:#1769e0;color:#fff;font-size:16px;font-weight:700;cursor:pointer}
+    .secondary{background:#fff;color:#1769e0;border:1px solid #1769e0;margin-left:10px}
     .notice{margin-top:18px;padding:14px;border-radius:8px;background:#eef6ff;display:none}
     .fine{font-size:14px;color:#667085}
     footer{margin-top:48px;color:#667085;font-size:14px}
@@ -25,38 +26,61 @@
   <h1>SMS Authorization &amp; Security Alerts</h1>
   <p class="updated">Operated by Jason Miller</p>
 
-  <p>MIDAS is a software application operated by Jason Miller. Jason Miller uses SMS to deliver transactional notifications to authorized MIDAS users who choose to receive them. Messages may include authorization requests, security notifications, account or service alerts, and other communications the user has requested or authorized.</p>
+  <p>MIDAS is a software application operated by Jason Miller. Jason Miller uses SMS to deliver transactional notifications to authorized MIDAS users who voluntarily choose to receive them. Messages may include authorization requests, security notifications, account or service alerts, and other communications the user has requested or authorized.</p>
 
   <div class="card">
-    <h2>Opt in to SMS messages</h2>
-    <p>Enter your mobile phone number below and actively check the consent box to agree to receive SMS messages from Jason Miller regarding MIDAS.</p>
+    <h2>Optional SMS enrollment</h2>
+    <p><strong>SMS enrollment is optional.</strong> You may use MIDAS and its services without consenting to receive SMS messages. If you choose to receive SMS messages, enter your mobile phone number and actively check the consent box below. Leaving the box unchecked means you are declining SMS enrollment.</p>
 
     <form id="smsConsentForm">
-      <label for="phone">Mobile phone number</label>
-      <input id="phone" name="phone" type="tel" autocomplete="tel" placeholder="(555) 555-5555" required>
+      <label for="phone">Mobile phone number <span class="fine">(optional)</span></label>
+      <input id="phone" name="phone" type="tel" autocomplete="tel" placeholder="(555) 555-5555">
 
       <label class="consent" for="smsConsent">
-        <input id="smsConsent" name="smsConsent" type="checkbox" required>
-        <span>I agree to receive SMS messages from Jason Miller regarding MIDAS authorization requests, security notifications, account or service alerts, and other requested service communications. Message frequency varies. Message and data rates may apply. Consent is not a condition of purchase.</span>
+        <input id="smsConsent" name="smsConsent" type="checkbox">
+        <span>I agree to receive SMS messages from Jason Miller regarding MIDAS authorization requests, security notifications, account or service alerts, and other requested service communications. Message frequency varies. Message and data rates may apply. Consent is not a condition of purchase or use of MIDAS.</span>
       </label>
 
       <p class="fine">You can opt out at any time by replying STOP. Reply HELP for assistance. See the <a href="terms.html">Terms &amp; Conditions</a> and <a href="privacy.html">Privacy Policy</a>.</p>
 
-      <button type="submit">Yes, I agree</button>
-      <div class="notice" id="confirmation" role="status">Your consent selection has been recorded on this page. By submitting this form with the checkbox selected, you affirmatively agree to the SMS program described above.</div>
+      <button type="submit">Enroll in SMS</button>
+      <button type="button" class="secondary" id="decline">No thanks</button>
+      <div class="notice" id="confirmation" role="status"></div>
     </form>
   </div>
 
   <h2>About the SMS program</h2>
-  <p>Messages are intended for the person who affirmatively opts in. We do not sell or share mobile phone numbers, mobile information, or SMS opt-in information with third parties or affiliates for their own marketing or promotional purposes.</p>
+  <p>Messages are intended for the person who affirmatively opts in. SMS enrollment is voluntary and separate from access to MIDAS and its services. We do not sell or share mobile phone numbers, mobile information, or SMS opt-in information with third parties or affiliates for their own marketing or promotional purposes.</p>
   <p>Message frequency varies based on activity and requests. Message and data rates may apply. Reply STOP to opt out or HELP for assistance.</p>
 
   <footer>© 2026 Jason Miller. MIDAS is operated by Jason Miller.</footer>
 
   <script>
-    document.getElementById('smsConsentForm').addEventListener('submit', function(event){
+    const form = document.getElementById('smsConsentForm');
+    const phone = document.getElementById('phone');
+    const consent = document.getElementById('smsConsent');
+    const confirmation = document.getElementById('confirmation');
+
+    form.addEventListener('submit', function(event){
       event.preventDefault();
-      document.getElementById('confirmation').style.display = 'block';
+      if (!consent.checked) {
+        confirmation.textContent = 'No SMS consent was provided. You may continue using MIDAS without enrolling in SMS.';
+        confirmation.style.display = 'block';
+        return;
+      }
+      if (!phone.value.trim()) {
+        confirmation.textContent = 'Please enter a mobile phone number if you want to enroll in SMS.';
+        confirmation.style.display = 'block';
+        return;
+      }
+      confirmation.textContent = 'You have affirmatively selected SMS enrollment. This page demonstrates the consent flow; the MIDAS service must retain the actual consent record before sending messages.';
+      confirmation.style.display = 'block';
+    });
+
+    document.getElementById('decline').addEventListener('click', function(){
+      consent.checked = false;
+      confirmation.textContent = 'No SMS consent was provided. You may continue using MIDAS without enrolling in SMS.';
+      confirmation.style.display = 'block';
     });
   </script>
 </body>
